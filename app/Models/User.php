@@ -75,5 +75,7 @@ class User extends Authenticatable
         if (!$activeMembership) {
             return null;
         }
+
+        return Plan::find($activeMembership->plan_id);
     }
 }
