@@ -29,7 +29,7 @@
                 @foreach ($latestMovies as $movie)
                     <div class="swiper-slide">
                         <div class="card">
-                            <a href="{{ route('movies.show', $movie->slug) }}">
+                            <a href="#">
                                 <img src="{{ $movie->poster }}" class="h-100 img-fluid" alt="..." />
                                 <span class="rounded-pill text-bg-dark badge badge-rating">
                                     <img class="star-rating" src="assets/img/star-rating.png" alt="" />
