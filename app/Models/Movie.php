@@ -27,6 +27,8 @@ class Movie extends Model
         'url_4k'
     ];
 
+    protected $appends = ['average_rating'];
+
     protected $casts = [
         'release_date' => 'date'
     ];
@@ -44,5 +46,32 @@ class Movie extends Model
     public function getAverageRatingAttribute(): float
     {
         return $this->ratings()->avg('rating');
+    }
+
+    public function getStreamingUrl(string $planResolution): string
+    {
+        return match ($planResolution) {
+            '720p' => $this->url_720p,
+            '1080p' => $this->url_1080p,
+            '4k' => $this->url_720,
+            default => $this->url_720,
+        };
+    }
+
+    public function getFormattedDurationAttribute()
+    {
+        $hours = floor($this->duration / 60);
+        $minutes = $this->duration % 60;
+        $formatted = '';
+
+        if ($hours > 0) {
+            $formatted .= "{$hours}h";
+        }
+
+        if ($minutes > 0 || $hours == 0) {
+            $formatted .= "{$minutes}m";
+        }
+
+        return trim($formatted);
     }
 }

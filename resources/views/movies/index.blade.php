@@ -22,14 +22,14 @@
     </div>
     <h3 class="new-added-title">New Added</h3>
     <section>
-        <div class="swiper">
+        <div class="swiper swiper-new-added">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->
                 @foreach ($latestMovies as $movie)
                     <div class="swiper-slide">
                         <div class="card">
-                            <a href="#">
+                            <a href="{{ route('movies.show', $movie->slug) }}">
                                 <img src="{{ $movie->poster }}" class="h-100 img-fluid" alt="..." />
                                 <span class="rounded-pill text-bg-dark badge badge-rating">
                                     <img class="star-rating" src="assets/img/star-rating.png" alt="" />
@@ -53,7 +53,7 @@
     </section>
     <h3 class="new-added-title">Trending</h3>
     <section>
-        <div class="swiper">
+        <div class="swiper swiper-trending">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->
