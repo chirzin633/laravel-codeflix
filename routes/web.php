@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SubscribeController;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ Route::get('/', function () {
 
 Route::get('/home', [MovieController::class, 'index'])->name('home');
 Route::get('/movies/{movie:slug}', [MovieController::class, 'show'])->name('movies.show');
+Route::get('/categories/{categories:slug}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::post('/logout', function (Request $request) {
     return app(AuthenticatedSessionController::class)->destroy($request);
