@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
+
 
 class MovieController extends Controller implements HasMiddleware
 {
@@ -32,5 +34,15 @@ class MovieController extends Controller implements HasMiddleware
         $streamingUrl = $movie->getStreamingUrl($userPlan->resolution);
 
         return view('movies.show', compact('movie', 'streamingUrl'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('q');
+        $movies = Movie::where('title', 'like', "%$search%")->get();
+        return view('movies.search', [
+            'keyword' => $search,
+            'movies' => $movies
+        ]);
     }
 }
