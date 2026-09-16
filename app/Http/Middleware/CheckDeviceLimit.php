@@ -41,6 +41,10 @@ class CheckDeviceLimit
             ->where('device_id', $sessionDeviceId)
             ->first();
 
+        if ($device) {
+            $this->deviceService->touchDevice($device);
+        }
+
         if (!$device) {
             $device = $this->deviceService->registerDevice($user);
             if (!$device) {

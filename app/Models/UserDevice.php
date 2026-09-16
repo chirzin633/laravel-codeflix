@@ -11,7 +11,7 @@ class UserDevice extends Model
     /** @use HasFactory<\Database\Factories\UserDeviceFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'device_name', 'device_id', 'device_type', 'platform', 'platform_version', 'browser', 'browser_version'];
+    protected $fillable = ['user_id', 'device_name', 'device_id', 'device_type', 'platform', 'platform_version', 'browser', 'browser_version', 'last_active'];
 
     protected $casts = ['last_active' => 'datetime'];
 

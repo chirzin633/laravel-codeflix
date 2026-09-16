@@ -9,8 +9,12 @@ use Jenssegers\Agent\Facades\Agent;
 
 class DeviceLimitService
 {
+    public const INACTIVE_MINUTES = 60;
+
     public function registerDevice(User $user)
     {
+        $this->pruneInactiveDevices($user);
+
         $deviceInfo = $this->getDeviceInfo();
 
         $existingDevice = $this->findExistingDevice($user, $deviceInfo);
@@ -34,6 +38,26 @@ class DeviceLimitService
     {
         UserDevice::where('device_id', $deviceId)->delete();
         session()->forget('device_id');
+    }
+
+    public function touchDevice(UserDevice $device): void
+    {
+        $device->update(['last_active' => now()]);
+    }
+
+    public function pruneInactiveDevices(User $user): int
+    {
+        $threshold = now()->subMinutes(self::INACTIVE_MINUTES);
+
+        return UserDevice::where('user_id', $user->id)
+            ->where(function ($query) use ($threshold) {
+                $query->where('last_active', '<', $threshold)
+                    ->orWhere(function ($query) use ($threshold) {
+                        $query->whereNull('last_active')
+                            ->where('updated_at', '<', $threshold);
+                    });
+            })
+            ->delete();
     }
 
     private function getDeviceInfo()
@@ -60,7 +84,10 @@ class DeviceLimitService
 
     private function hasReachedDeviceLimit(User $user)
     {
-        $maxDevices = $user->getCurrentPlan()->max_device ?? 1;
+        $this->pruneInactiveDevices($user);
+
+        $plan = $user->getCurrentPlan();
+        $maxDevices = $plan?->max_devices ?? 1;
 
         return UserDevice::where('user_id', $user->id)->count() >= $maxDevices;
     }
