@@ -50,12 +50,14 @@ class Movie extends Model
 
     public function getStreamingUrl(string $planResolution): string
     {
-        return match ($planResolution) {
+        $url = match ($planResolution) {
             '720p' => $this->url_720p,
             '1080p' => $this->url_1080p,
-            '4k' => $this->url_720,
+            '4k' => $this->url_4k,
             default => $this->url_720,
         };
+
+        return $url ?? '';
     }
 
     public function getFormattedDurationAttribute()

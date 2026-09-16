@@ -54,8 +54,15 @@ class MovieController extends Controller implements HasMiddleware
 
     public function search(Request $request)
     {
-        $search = $request->input('q');
-        $movies = Movie::where('title', 'like', "%$search%")->get();
+        $search = trim($request->input('q', ''));
+        $movies = $search === ''
+            ? collect()
+            : Movie::where('title', 'like', "%{$search}%")
+                ->orWhere('director', 'like', "%{$search}%")
+                ->orWhere('stars', 'like', "%{$search}%")
+                ->latest()
+                ->limit(24)
+                ->get();
         return view('movies.search', [
             'keyword' => $search,
             'movies' => $movies

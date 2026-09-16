@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-6.6.0-web/css/all.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    @stack ('styles')
 </head>
 <body>
     <x-navbar />
 
-    @yield ('content')
+    <main class="page-content">
+        @yield ('content')
+    </main>
 
     <footer>
         <div class="text-white text-center">
@@ -62,7 +65,7 @@
         document.querySelectorAll('.swiper').forEach((el) => {
             new Swiper(el, {
                 speed: 400,
-                spaceBetween: 10,
+                spaceBetween: 12,
                 autoplay: {
                     delay: 3000,
                     disableOnInteraction: false,
@@ -76,13 +79,14 @@
                     prevEl: el.querySelector('.swiper-button-prev'),
                 },
                 breakpoints: {
-                    325: { slidesPerView: 2, spaceBetween: 20 },
-                    768: { slidesPerView: 4, spaceBetween: 40 },
-                    1024: { slidesPerView: 5, spaceBetween: 50 },
+                    0: { slidesPerView: 2, spaceBetween: 12 },
+                    576: { slidesPerView: 3, spaceBetween: 16 },
+                    768: { slidesPerView: 4, spaceBetween: 16 },
+                    1024: { slidesPerView: 5, spaceBetween: 20 },
                 },
             });
         });
     </script>
-    @stack ('script')
+    @stack ('scripts')
 </body>
 </html>

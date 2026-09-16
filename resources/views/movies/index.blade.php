@@ -1,27 +1,27 @@
 @extends ('layouts.app')
 
 @section ('content')
-    <div class="container-fluid section-jumbotron">
+    <div class="section-jumbotron">
         <div class="jumbotron">
             <div class="jumbotron-content">
-                <div class="align-items-center row">
-                    <div class="col-md-5 col-7">
-                        <div class="ms-4 py-4">
+                <div class="align-items-center row g-0">
+                    <div class="col-12 col-md-5">
+                        <div class="p-4">
                             <h1 class="display-4 jumbotron-title">All New Simba</h1>
                             <p class="lead">Simba adalah anak sebatang kara yang sedang mencari orang tuanya tetapi usaha nya terbatas. Mampukah simba menemukan orang tuanya ?</p>
                             <a class="btn btn-primary btn-play btn-md-lg" href="#" role="button">Play</a>
                         </div>
                     </div>
-                    <div class="col-md-7 col-5 jumbotron-img">
+                    <div class="col-12 col-md-7 jumbotron-img">
                         <div class="jumbotron-layer"></div>
-                        <img src="assets/img/Jumbotron-img.png" alt="" class="img-fluid" />
+                        <img src="{{ asset('assets/img/Jumbotron-img.png') }}" alt="All New Simba" class="img-fluid w-100" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <h3 class="new-added-title">New Added</h3>
-    <section>
+    <section class="movie-section">
         <div class="swiper swiper-new-added">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
@@ -30,9 +30,9 @@
                     <div class="swiper-slide">
                         <div class="card">
                             <a href="{{ route('movies.show', $movie->slug) }}">
-                                <img src="{{ $movie->poster }}" class="h-100 img-fluid" alt="..." />
+                                <img src="{{ $movie->poster }}" class="card-image-movie-list" alt="{{ $movie->title }}" loading="lazy" />
                                 <span class="rounded-pill text-bg-dark badge badge-rating">
-                                    <img class="star-rating" src="assets/img/star-rating.png" alt="" />
+                                    <img class="star-rating" src="{{ asset('assets/img/star-rating.png') }}" alt="" />
                                     ({{ $movie->average_rating }})
                                 </span>
                             </a>
@@ -52,7 +52,7 @@
         </div>
     </section>
     <h3 class="new-added-title">Trending</h3>
-    <section>
+    <section class="movie-section">
         <div class="swiper swiper-trending">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
@@ -60,11 +60,13 @@
                 @foreach ($popularMovies as $movie)
                     <div class="swiper-slide">
                         <div class="card">
-                            <img src="{{ $movie->poster }}" class="h-100 img-fluid" alt="..." />
-                            <span class="rounded-pill text-bg-dark badge badge-rating">
-                                <img class="star-rating" src="assets/img/star-rating.png" alt="" />
-                                ({{ $movie->average_rating }})
-                            </span>
+                            <a href="{{ route('movies.show', $movie->slug) }}">
+                                <img src="{{ $movie->poster }}" class="card-image-movie-list" alt="{{ $movie->title }}" loading="lazy" />
+                                <span class="rounded-pill text-bg-dark badge badge-rating">
+                                    <img class="star-rating" src="{{ asset('assets/img/star-rating.png') }}" alt="" />
+                                    ({{ $movie->average_rating }})
+                                </span>
+                            </a>
                         </div>
                     </div>
                 @endforeach

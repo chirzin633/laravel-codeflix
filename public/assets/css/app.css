@@ -142,7 +142,16 @@ body, html {
 }
 
 .section-jumbotron {
-    padding: 0px 70px;
+    padding: 0;
+    width: 100%;
+}
+
+.page-content {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+    flex: 1 0 auto;
 }
 
 
@@ -152,6 +161,8 @@ body, html {
     background: rgba(20, 42, 54);
     position: relative;
     z-index: 1;
+    border-radius: 20px;
+    overflow: hidden;
 }
 .jumbotron-layer{
     position: absolute;
@@ -176,12 +187,20 @@ body, html {
     top: 0;
 }
 
+.jumbotron-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 .jumbotron-title {
     color: #fff;
     font-family: "Kanit", sans-serif;
     font-weight: 600;
-    font-size: 65px;
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1.1;
 }
 
 .lead {
@@ -194,7 +213,9 @@ body, html {
 }
 
 .btn-play {
-    width: 284px;
+    width: auto;
+    min-width: 160px;
+    max-width: 284px;
     border-radius: 10px;
     background-color: #1ABC9C;
     border: 1px solid #1ABC9C;
@@ -209,28 +230,32 @@ body, html {
     font-family: "Kanit", sans-serif;
     font-weight: 600;
     font-size: 28px;
-    margin-left: 155px;
+    margin: 2rem 0 1rem;
+    padding: 0 4px;
     color: #fff;
-    margin-top: 2rem;
 }
 
 .category-title {
     font-family: "Kanit", sans-serif;
     font-weight: 600;
     font-size: 28px;
-    margin-left: 155px;
+    margin: 8rem 0 1rem;
+    padding: 0 4px;
     color: #fff;
-    margin-top: 8rem;
 }
 
 
 .card {
-    max-width: 205px;
-    height: 308px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
     border-radius: 20px;
     border: none;
     margin: 0;
     position: relative;
+    overflow: hidden;
+    background-color: #142A36;
 }
 
 .badge-rating {
@@ -248,15 +273,15 @@ body, html {
     width: 15px;
 }
 
-section {
+section.movie-section {
     width: 100%;
     height: auto;
-    display: flex;
+    display: block;
 }
 
 
 .swiper {
-    width: calc(100% - 15%);
+    width: 100%;
     height: auto;
     margin-top: 1rem;
 }
@@ -331,8 +356,8 @@ section {
 }
 
 .breadcrumb{
-    margin-left: 6rem;
-    margin-top: 7rem;
+    margin: 7rem 0 1rem;
+    padding: 0 4px;
     background: transparent;
 }
 
@@ -349,30 +374,64 @@ section {
     font-size: 18px;
     font-weight: 600;
     font-family: "Montserrat", sans-serif;
+    min-width: 0;
+    overflow-wrap: break-word;
 }
 
 .breadcrumb-item+.breadcrumb-item::before{
     color: #1ABC9C;
 }
 
+.breadcrumb ol {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+}
+
 .container-movie {
     background-color: #142A36;
     border-radius: 20px;
-    margin: 0 64px;
+    margin: 0 auto;
+    max-width: 1100px;
+    width: 100%;
+    padding: 24px;
+}
+
+.movie-detail-top {
+    margin: 0;
 }
 
 .thumbnail-movie {
-    width: 222px;
+    width: 100%;
+    max-width: 222px;
     height: auto;
-    margin-top: 1rem;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: 0;
 }
 
 .movie-title {
-    font-size: 46px;
+    font-size: clamp(24px, 3.5vw, 46px);
     font-weight: 600;
     font-family: "Kanit", sans-serif;
     color: #fff;
-    margin-top: 2rem;
+    margin-top: 0;
+    line-height: 1.15;
+    overflow-wrap: break-word;
+}
+
+.movie-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .movie-meta {
+        justify-content: flex-start;
+    }
 }
 
 .year-movie {
@@ -399,8 +458,22 @@ section {
     font-weight: 100;
     font-size: 18px;
     color: #fff;
-    height: 105px;
-    margin-top: 2rem;
+    height: auto;
+    min-height: 0;
+    margin-top: 1.25rem;
+}
+
+.badge-category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .badge-category {
+        justify-content: flex-start;
+    }
 }
 
 .badge-category-movie {
@@ -416,10 +489,10 @@ section {
     width: 100%;
     border-radius: 10px;
     background-color: #132029;
-    margin-top: 1rem;
-    margin: 1rem;
+    margin: 0 0 1rem;
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom: 12px;
 }
 
 .rating-movie {
@@ -478,8 +551,40 @@ section {
 }
 
 .movie-info-detail {
+    width: 100%;
     max-width: 400px;
     text-align: left;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .movie-info-detail {
+        margin: 0;
+    }
+}
+
+.movie-info-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    align-items: baseline;
+}
+
+.movie-info-label {
+    flex: 0 0 80px;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.movie-info-value {
+    flex: 1 1 auto;
+    min-width: 0;
+    color: #1ABC9C;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    overflow-wrap: break-word;
 }
 
 .writters-movie {
@@ -507,11 +612,16 @@ section {
     width: 100%;
 }
 
+.movie-player {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
 
 .badge-frame-video {
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-top: 1rem;
+    margin: 1rem 0 0;
+    padding: 0 2px;
 }
 
 .badge-frame-video-tools {
@@ -527,7 +637,8 @@ section {
     font-weight: 100;
     font-size: 14px;
     font-family: "Montserrat", sans-serif;
-    float: right;
+    float: none;
+    white-space: nowrap;
 }
 
 .light-icon {
@@ -589,10 +700,21 @@ section {
 .card-image-movie-list {
     width: 100%;
     height: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 .card-movie-list {
-    margin: 50px 100px;
+    margin: 24px 0;
+}
+
+@media (min-width: 1200px) {
+    .col-xl-20 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
 }
 
 .cards-plan-list {
@@ -618,11 +740,26 @@ section {
 }
 
 .column-rating {
-    border-left: 1px solid gray;
-    margin-top: 1rem;
+    margin-top: 0;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+@media (min-width: 768px) {
+    .column-rating {
+        border-left: 1px solid gray;
+        padding-left: 1.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .column-rating {
+        border-left: none;
+        border-top: 1px solid rgba(128, 128, 128, 0.4);
+        padding-top: 1rem;
+    }
 }
 
 .overview-title {
@@ -1225,22 +1362,25 @@ footer{
     }
 
     .jumbotron-title {
-        font-size: 12px;
+        font-size: clamp(22px, 6vw, 32px);
+        line-height: 1.15;
     }
     .lead{
-        font-size: 8px;
-        margin-top: 0;
+        font-size: 14px;
+        margin-top: 0.75rem;
+        max-width: 100%;
     }
     .btn-play {
         width: auto;
         border-radius: 10px;
         margin-left: 0;
-        padding: 4px 40px;
-        font-size: 10px;
+        padding: 8px 40px;
+        font-size: 14px;
     }
 
     .card{
-        height: 250px;
+        aspect-ratio: 2 / 3;
+        height: auto;
     }
 
     .navbar-nav .dropdown-menu {
@@ -1302,24 +1442,30 @@ footer{
         margin-top: 8rem;
     }
 
+    .container-movie {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
     .thumbnail-movie {
-        width: 100px;
-        height: auto;
-        margin-top: 1rem;
-        
+        max-width: 200px;
+        margin: 0 auto;
     }
 
     .movie-title {
-        font-size: 20px;
-        font-weight: 600;
-        font-family: "Kanit", sans-serif;
-        color: #fff;
-        margin-top: 2rem;
+        font-size: 22px;
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+
+    .movie-info-row {
+        justify-content: center;
+        text-align: left;
     }
 
     .breadcrumb{
-        margin-left: 2rem;
-        margin-top: 7rem;
+        margin: 6rem 0 0.75rem;
+        padding: 0 4px;
         background: transparent;
       }
     
@@ -1347,8 +1493,8 @@ footer{
         font-weight: 100;
         font-size: 14px;
         color: #fff;
-        height: 105px;
-        margin-top: 2rem;
+        height: auto;
+        margin-top: 1rem;
     }
 
     .rating-movie {
