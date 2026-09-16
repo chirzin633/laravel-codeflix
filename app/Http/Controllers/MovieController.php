@@ -28,6 +28,22 @@ class MovieController extends Controller implements HasMiddleware
         return view('movies.index', compact('latestMovies', 'popularMovies'));
     }
 
+    public function all(Request $request)
+    {
+        $movies = Movie::orderBy('release_date', 'desc')->paginate(8);
+
+        if ($request->ajax()) {
+            $html = view('components.movie-list', compact('movies'))->render();
+
+            return response()->json([
+                'html' => $html,
+                'next_page' => $movies->nextPageUrl()
+            ]);
+        }
+
+        return view('movies.all', compact('movies'));
+    }
+
     public function show(Movie $movie)
     {
         $userPlan = Auth::user()->getCurrentPlan();
