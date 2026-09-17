@@ -53,7 +53,7 @@
 @endsection
 
 @section ('scripts')
-    {{-- <script
+    <script
         src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ config('midtrans.client_key') }}"></script>
     <script>
@@ -97,5 +97,5 @@
                     alert('Something went wrong');
                 });
         });
-    </script> --}}
+    </script>
 @endsection
